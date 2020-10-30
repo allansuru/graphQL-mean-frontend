@@ -41,6 +41,17 @@ mutation
   }
 `;
 
+const UPDATE_QUOTE = gpl`
+mutation
+  updateQuote($id: ID!, $quote: String!, $author: String!) {
+    updateQuote(id: $id, quoteInput: { quote: $quote, author: $author}) {
+    _id,
+    quote,
+    author
+  }
+}
+`;
+
 
 @Component({
   selector: 'app-root',
@@ -48,9 +59,9 @@ mutation
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'frontend';
 
   quotes$: Observable<any>;
+
 
   constructor(private apollo: Apollo) { }
 
@@ -92,6 +103,22 @@ export class AppComponent implements OnInit {
     })
       .subscribe((result) => {
         console.log(result)
+      })
+  }
+
+  public updateHandler({ _id }, quote, author): void {
+    debugger
+    this.apollo.mutate({
+      mutation: UPDATE_QUOTE,
+      refetchQueries: [{ query: GET_QUOTES }],
+      variables: {
+        id: _id,
+        quote,
+        author
+      }
+    })
+      .subscribe((result) => {
+        debugger
       })
   }
 }

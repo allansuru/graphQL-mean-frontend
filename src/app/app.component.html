@@ -1,13 +1,20 @@
 <h2>Create Qoute</h2>
-quote : <input #quote type="text">
-author : <input #author type="text">
-<button (click)="createHandler(quote.value, author.value)">Submit</button>
+<form>
+  quote : <input #quote type="text">
+  author : <input #author type="text">
+  <button (click)="createHandler(quote.value, author.value)">Submit</button>
 
 
-<h1>Quotes</h1>
-<ul>
-  <li *ngFor="let quote of quotes$ | async">
-    {{ quote?.quote }} - {{ quote?.author }}
-    <button (click)="deleteHandler(quote)">Delete</button>
-  </li>
-</ul>
+  <h1>Quotes</h1>
+
+  <div class="form-group">
+    <ul>
+      <li *ngFor="let quote of quotes$ | async; let i = index ">
+        <input #q type="text" class="form-control" id="quote{{i}}" value={{quote.quote}}> - <input #author type="text"
+          class="form-control" id="author{{i}}" value={{quote.author}}>
+        <button (click)="deleteHandler(quote)">Delete</button>
+        <button (click)="updateHandler(quote, q.value, author.value)">Edit</button>
+      </li>
+    </ul>
+  </div>
+</form>
