@@ -30,6 +30,17 @@ mutation
 }
 `;
 
+const DELETE_QUOTE = gpl`
+mutation
+  deleteQuote($id: ID!) {
+    deleteQuote(id: $id) {
+      _id,
+      quote,
+      author
+    }
+  }
+`;
+
 
 @Component({
   selector: 'app-root',
@@ -63,6 +74,20 @@ export class AppComponent implements OnInit {
       variables: {
         quote,
         author
+      }
+    })
+      .subscribe((result) => {
+        console.log(result)
+      })
+  }
+
+  public deleteHandler({ _id }): void {
+
+    this.apollo.mutate({
+      mutation: DELETE_QUOTE,
+      refetchQueries: [{ query: GET_QUOTES }],
+      variables: {
+        id: _id
       }
     })
       .subscribe((result) => {
