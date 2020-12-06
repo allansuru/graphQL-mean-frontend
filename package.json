@@ -6,7 +6,8 @@
     "start:dev": "ng serve",
     "build": "ng build",
     "start": "node server.js",
-    "postinstall": "ng build --aot --prod",
+    "heroku-postbuild": "ng build --prod",
+    "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && ng serve -o",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
