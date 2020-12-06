@@ -1,9 +1,9 @@
 {
   "name": "frontend",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve  --port $PORT --host 0.0.0.0",
     "build": "ng build",
     "heroku-postbuild": "ng build --prod",
     "test": "ng test",
@@ -47,5 +47,9 @@
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
     "typescript": "~3.8.3"
+  },
+  "engines": {
+    "node": "12.16.1",
+    "npm": "6.14.8"
   }
 }
